@@ -1,1 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EliteTech | Premium Electronics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            background-color: #ffffff;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Samsung Style */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #000;
+        }
+
+        .nav-desktop ul {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        .nav-desktop a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-desktop a:hover {
+            color: #007bff;
+        }
+
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #007bff;
+            transition: width 0.3s;
+        }
+
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .header-icons button {
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            color: #000;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .header-icons button:hover {
+            color: #007bff;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .nav-mobile {
+            display: none;
+            background: #fff;
+            border-top: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .nav-mobile ul {
+            list-style: none;
+        }
+
+        .nav-mobile a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #000;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .nav-mobile a:hover {
+            color: #007bff;
+            background: #f8f9fa;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #fff;
+            border: 1.5px solid #ddd;
+            color: #444;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            border-color: #ddd;
+        }
+
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #e74c3c;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-category {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            text-transform: capitalize;
+        }
+
+        .product-name {
+            font-size: 1.22rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 14px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-btn {
+            background: #f8f9fa;
+            color: #000;
+            border: 1px solid #ddd;
+        }
+
+        .view-btn:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .wishlist-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-btn:hover,
+        .wishlist-btn.active {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid #eee;
+        }
+
+        .footer p {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-desktop {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .nav-mobile {
+                display: none;
+            }
+            .nav-mobile.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                padding: 12px 0;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-top container">
+            <div class="logo">EliteTech</div>
+
+            <!-- Desktop Nav -->
+            <nav class="nav-desktop">
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Mobile</a></li>
+                    <li><a href="#">TV & AV</a></li>
+                    <li><a href="#">Appliances</a></li>
+                    <li><a href="#">Computing</a></li>
+                    <li><a href="#">Audio</a></li>
+                    <li><a href="#">Wearables</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </nav>
+
+            <!-- Icons -->
+            <div class="header-icons">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <button><i class="fas fa-shopping-cart"></i></button>
+                <button><i class="fas fa-user"></i></button>
+                <button class="hamburger"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <nav class="nav-mobile">
+            <ul>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Mobile</a></li>
+                <li><a href="#">TV & AV</a></li>
+                <li><a href="#">Appliances</a></li>
+                <li><a href="#">Computing</a></li>
+                <li><a href="#">Audio</a></li>
+                <li><a href="#">Wearables</a></li>
+                <li><a href="#">Accessories</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Products</h2>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="smartphone">Smartphones</button>
+                <button class="filter-btn" data-filter="gaming">Gaming</button>
+                <button class="filter-btn" data-filter="audio">Audio</button>
+            </div>
+
+            <div class="products-grid" id="products-container">
+                <!-- Products loaded by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 EliteTech. All rights reserved. | This is a showcase website — products not for sale.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navMobile = document.querySelector(".nav-mobile");
+
+        hamburger.addEventListener("click", () => {
+            navMobile.classList.toggle("active");
+        });
+
+        // Product Data
+        const products = [
+            { id: 1, name: "iPhone 16 Pro", category: "smartphone", price: "$1199", description: "Advanced camera & A17 Pro chip.", image: "https://bigbyte.com.np/wp-content/uploads/2024/11/Apple-iPhone-16-256GB-All-Color-Options-scaled.jpg", badge: "New" },
+            { id: 2, name: "iPhone 17", category: "smartphone", price: "$1299", description: "Revolutionary design & features.", image: "https://images.macrumors.com/article-new/2025/09/iPhone-17-Colors.jpg", badge: "Coming Soon" },
+            { id: 3, name: "PlayStation 5", category: "gaming", price: "$499", description: "Next-gen gaming with ultra-fast SSD.", image: "https://cdn.gadgetbytenepal.com/wp-content/uploads/2022/11/Sony-PlayStation-5-Slim-Design.jpg", badge: "Popular" },
+            { id: 4, name: "Xbox Series X", category: "gaming", price: "$499", description: "Most powerful Xbox ever.", image: "https://cms-assets.xboxservices.com/assets/f0/8d/f08dfa50-f2ef-4873-bc8f-bcb6c34e48c0.png?n=642227_Hero-Gallery-0_C2_857x676.png", badge: "Popular" },
+            { id: 5, name: "Sony WH-1000XM5", category: "audio", price: "$399", description: "Best-in-class noise cancellation.", image: "https://hnsgsfp.imgix.net/9/images/detailed/78/Sony_WH-1000XM5_Noise-Canceling_Wireless_Over-Ear_Headphones_-_Black_(IMG_1).jpg?fit=fill&bg=0FFF&w=1536&h=900&auto=format,compress", badge: "Best Seller" },
+            { id: 6, name: "MacBook Pro 16", category: "laptop", price: "$2399", description: "M2 Pro/Max for extreme performance.", image: "https://bigbyte.com.np/wp-content/uploads/2021/04/16-inch-macbook-pro-2019-price-nepal.jpg", badge: "Premium" },
+            { id: 7, name: "Samsung Galaxy S24", category: "smartphone", price: "$999", description: "AI-powered camera & display.", image: "https://cdn.gadgetbytenepal.com/wp-content/uploads/2024/10/Samsung-Galaxy-S24-FE-Blue.jpg", badge: "New" }
+        ];
+
+        // Render Products
+        function renderProducts(filter = 'all') {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image" style="background-image: url('${product.image}')">
+                        <span class="product-badge">${product.badge}</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-price">${product.price}</div>
+                        <div class="product-actions">
+                            <button class="product-btn view-btn">View Details</button>
+                            <button class="product-btn wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+
+            // Filter Buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderProducts(btn.dataset.filter);
+                });
+            });
+
+            // Wishlist Toggle
+            document.addEventListener('click', e => {
+                const btn = e.target.closest('.wishlist-btn');
+                if (btn) {
+                    const icon = btn.querySelector('i');
+                    btn.classList.toggle('active');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.replace('far', 'fas');
+                    } else {
+                        icon.classList.replace('fas', 'far');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
